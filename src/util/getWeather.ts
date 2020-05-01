@@ -4,7 +4,8 @@ dotenv.config();
 
 function getWeather(weatherLatLong: string): Promise<{}> {
     return new Promise((resolve, reject): void => {
-        const url = `https://api.darksky.net/forecast/${process.env.DARK_SKY_API_KEY}/${weatherLatLong}?exclude=minutely,hourly,daily,alerts,flags&units=si`;
+    	const {WEATHER_LAT, WEATHER_LON, OPEN_WEATHER_API_KEY, UNITS} = process.env;
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${WEATHER_LAT}&lon=${WEATHER_LON}&units=${UNITS}&appid=${OPEN_WEATHER_API_KEY}`;
         fetch(url).then((res): {} => res.json()).then((result: {}): void => resolve(result))
             .catch((err): void => reject(err));
     });
