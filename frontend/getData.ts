@@ -108,9 +108,10 @@ export interface WeatherInfo{
     "icon": string;
 }
 
+
 export interface Config {
     //"ctaBusStops"?: string[];
-   //"ctaTrainStations"?: string[];
+    //"ctaTrainStations"?: string[];
     "weatherLatLong"?: string;
     "eventCalendars"?: string[];
 }
@@ -175,6 +176,6 @@ export function getData(): void {
         const temp = result.currently.temperature;
         const tempF = Math.round(temp);
         const tempC = Math.round(((temp-32)*5)/9);
-        document.getElementById("weather").innerHTML = `<p>${result.currently.summary}</p><p>${tempF} &#176;F | ${tempC} &#176;C</p>`;
+        document.getElementById("weather").innerHTML = `<p>${result.currently.temperature}</p><p>${tempF} &#176;F | ${tempC} &#176;C</p>`;
     });
 }
