@@ -78,26 +78,26 @@ interface StringIndexes {
 // }
 
 interface WeatherForecast {
-    "latitude": number;
-    "longitude": number;
+    "lat": number;
+    "lon": number;
     "timezone": string;
-    "currently": {
+    "timezone_offset"?: number | null;
+    "current": {
         "dt": number;
         "sunrise": number;
         "sunset": number;
-        "temperature": number;
-        "feelsLike": number;
+        "temp": number;
+        "feels_like"?: number | null;
         "pressure": number;
         "humidity": number;
+        "dew_point": number;
         "uvi": number;
         "clouds": number;
         "visibility": number;
-        "windSpeed": number;
-        "windDeg": number;
+        "wind_speed"?: number | null;
+        "wind_deg"?: number | null;
+        "wind_gust"?: number | null;
         "weather"?: (WeatherInfo)[] | null;
-    };
-    "rain": {
-        "1h": number;
     };
 }
 
@@ -173,9 +173,10 @@ export function getData(): void {
 
     clearData("#weather");
     fetch(`${origin}/api/weather?weatherLatLong=${config.weatherLatLong}`).then((res): Promise<WeatherForecast> => res.json()).then((result): void => {
-        const temp = result.currently.temperature;
+        console.log(result);
+        const temp = result.current.temp;
         const tempF = Math.round(temp);
         const tempC = Math.round(((temp-32)*5)/9);
-        document.getElementById("weather").innerHTML = `<p>${result.currently.temperature}</p><p>${tempF} &#176;F | ${tempC} &#176;C</p>`;
+        document.getElementById("weather").innerHTML = `<p>${result.current.temp}</p><p>${tempF} &#176;F | ${tempC} &#176;C</p>`;
     });
 }

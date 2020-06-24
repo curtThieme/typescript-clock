@@ -45,7 +45,6 @@ window.onload = (): void => {
     updateTime();
     setInterval(updateTime, 5000);
     
-
     switch (mode) {
         case "demo":
             for (let key in demoData) {
@@ -63,7 +62,7 @@ window.onload = (): void => {
             break;
         default:
             getData();
-            setInterval(getData, 120000);
+            setInterval(getData, 300000);
             break;
     }
 

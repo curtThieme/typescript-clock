@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bmiddha/simple-js-clock.git"
+    "url": "git+https://github.com/curtThieme/typescript-clock.git"
   },
-  "author": "Bharat Middha",
+  "author": "Bharat Middha/Curt Thieme",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/bmiddha/simple-js-clock/issues"
