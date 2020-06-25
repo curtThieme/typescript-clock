@@ -1,3 +1,5 @@
+import { WeatherForecast } from '../models/weatherAPI';
+
 interface StringIndexes {
     [key: string]: string;
 }
@@ -77,36 +79,36 @@ interface StringIndexes {
 //     };
 // }
 
-interface WeatherForecast {
-    "lat": number;
-    "lon": number;
-    "timezone": string;
-    "timezone_offset"?: number | null;
-    "current": {
-        "dt": number;
-        "sunrise": number;
-        "sunset": number;
-        "temp": number;
-        "feels_like"?: number | null;
-        "pressure": number;
-        "humidity": number;
-        "dew_point": number;
-        "uvi": number;
-        "clouds": number;
-        "visibility": number;
-        "wind_speed"?: number | null;
-        "wind_deg"?: number | null;
-        "wind_gust"?: number | null;
-        "weather"?: (WeatherInfo)[] | null;
-    };
-}
+// interface WeatherForecast {
+//     "lat": number;
+//     "lon": number;
+//     "timezone": string;
+//     "timezone_offset"?: number | null;
+//     "current": {
+//         "dt": number;
+//         "sunrise": number;
+//         "sunset": number;
+//         "temp": number;
+//         "feels_like"?: number | null;
+//         "pressure": number;
+//         "humidity": number;
+//         "dew_point": number;
+//         "uvi": number;
+//         "clouds": number;
+//         "visibility": number;
+//         "wind_speed"?: number | null;
+//         "wind_deg"?: number | null;
+//         "wind_gust"?: number | null;
+//         "weather"?: (WeatherInfo)[] | null;
+//     };
+// }
 
-export interface WeatherInfo{
-    "id": number;
-    "main": string;
-    "description": string;
-    "icon": string;
-}
+// export interface WeatherInfo{
+//     "id": number;
+//     "main": string;
+//     "description": string;
+//     "icon": string;
+// }
 
 
 export interface Config {
@@ -173,10 +175,9 @@ export function getData(): void {
 
     clearData("#weather");
     fetch(`${origin}/api/weather?weatherLatLong=${config.weatherLatLong}`).then((res): Promise<WeatherForecast> => res.json()).then((result): void => {
-        console.log(result);
         const temp = result.current.temp;
         const tempF = Math.round(temp);
         const tempC = Math.round(((temp-32)*5)/9);
-        document.getElementById("weather").innerHTML = `<p>${result.current.temp}</p><p>${tempF} &#176;F | ${tempC} &#176;C</p>`;
+        document.getElementById("weather").innerHTML = `<p>${tempF} &#176;F</p><p>${tempC} &#176;C</p>`;
     });
 }

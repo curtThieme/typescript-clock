@@ -62,7 +62,7 @@ window.onload = (): void => {
             break;
         default:
             getData();
-            setInterval(getData, 300000);
+            setInterval(getData, 900000);
             break;
     }
 
