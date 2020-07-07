@@ -133,9 +133,9 @@ body {
     height: 100%;
     border: 1px solid #ffffff;
     display: grid;
-    grid-template-areas: 'time time time weather weather' 'date date date date date' 'messages messages messages messages messages' 'switcher switcher switcher switcher switcher' 'footer footer footer footer footer';
+    grid-template-areas: 'time time time weather weather' 'date date date date date' 'switcher switcher switcher switcher switcher' 'buttons buttons buttons buttons buttons' 'footer footer footer footer footer';
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.75fr 0.3fr 0.9fr 4.1fr 0.18fr;
+    grid-template-rows: 0.75fr 0.3fr 4.1fr 0.9fr 0.18fr;
     #time {
         grid-area: time;
     }
@@ -148,8 +148,8 @@ body {
     #switcher {
         grid-area: switcher;
     }
-    #messages {
-        grid-area: messages;
+    #buttons {
+        grid-area: buttons;
     }
     #footer {
         grid-area: footer;
@@ -192,9 +192,15 @@ body {
     i {
         font-size: 1.5em;
     }
+    .fahrenheit{
+        font-size: 125%;
+    }
+    .celsius{
+        font-size: 100%;
+    }
 }
 
-#messages {
+#buttons {
     text-align: center;
     position: relative;
     p {
@@ -311,5 +317,5 @@ body {
 
 #footer {
     text-align: center;
-    font-size: 0.5em;
+    font-size: 0.25em;
 }

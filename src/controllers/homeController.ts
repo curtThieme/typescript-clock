@@ -7,8 +7,8 @@ interface ExplictAnyIndex {
 export const defaultConfig: ExplictAnyIndex = {
     //ctaBusStops: ["6700", "6627", "307", "332", "4640", "14487", "6347", "206"],
     //ctaTrainStations: ["40350"],
-    weatherLatLong: "41.8658728,-87.6482463",
-    eventCalendars: ["kc72g1ctfg8b88df34qqb62d1s@group.calendar.google.com"],
+    weatherLatLong: "41.8995,-87.9403",
+    //eventCalendars: ["kc72g1ctfg8b88df34qqb62d1s@group.calendar.google.com"],
 }
 
 export let index = (req: Request, res: Response): void => {

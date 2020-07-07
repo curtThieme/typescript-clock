@@ -1,4 +1,5 @@
 import { WeatherForecast } from '../models/weatherAPI';
+import { MetraTrainInfo } from '../models/metraAPI';
 
 interface StringIndexes {
     [key: string]: string;
@@ -113,15 +114,15 @@ interface StringIndexes {
 
 export interface Config {
     //"ctaBusStops"?: string[];
-    //"ctaTrainStations"?: string[];
+    "metraTrain"?: string[];
     "weatherLatLong"?: string;
-    "eventCalendars"?: string[];
+    //"eventCalendars"?: string[];
 }
 
 export function clearData(elementSelector?: string): void {
     if (!elementSelector) {
         //document.getElementById("bus").innerHTML = "";
-        //document.getElementById("train").innerHTML = "";
+        document.getElementById("train").innerHTML = "";
         document.getElementById("weather").innerHTML = "";
         document.getElementById("events").innerHTML = "";
         document.getElementById("messages").innerHTML = "";
@@ -133,11 +134,12 @@ export function clearData(elementSelector?: string): void {
 export function getData(): void {
     const { origin } = window.location;
     const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
     const config = {
         //ctaBusStops: urlParams.get("ctaBusStops"),
-        //ctaTrainStations: urlParams.get("ctaTrainStations"),
+        metraTrain: urlParams.get("metraTrain"),
         weatherLatLong: urlParams.get("weatherLatLong"),
-        eventCalendars: urlParams.get("eventCalendars"),
+        //eventCalendars: urlParams.get("eventCalendars"),
     };
 
     // clearData("#bus");
@@ -159,25 +161,26 @@ export function getData(): void {
     //     }
     // });
 
-    //TODO: Change train to Metra
-    // clearData("#train");
-    // config.ctaTrainStations.split(",").forEach((ele): void => {
-    //     fetch(`${origin}/api/ctaTrain?train=${ele}`).then((res): Promise<CtaTrainPredictions> => res.json()).then((result): void => {
-    //         const timeNow = new Date();
-    //         for (let j = 0; j < result.ctatt.eta.length; j++) {
-    //             const prdTime = new Date(result.ctatt.eta[j].arrT);
-    //             const eta = Math.floor(Math.abs(prdTime.valueOf() - timeNow.valueOf()) / 1000 / 60);
-    //             const routeColor = ctaRouteColors[result.ctatt.eta[j].rt];
-    //             document.getElementById("train").innerHTML += `<li class='trainItem'><i class='fa fa-train icon' style=background-color:${routeColor};></i><span class='eta' style=color:${routeColor};border-color:${routeColor};>${eta}m</span><span class='direction'>${result.ctatt.eta[j].destNm}</span></li>`;
-    //         }
-    //     });
-    // });
+    clearData("#train");
+    //config.metraTrain.split(",").forEach((ele): void => {
+    fetch(`${origin}/api/metraTrain?train=${config.metraTrain}`).then((res): Promise<MetraTrainInfo> => res.json()).then((result): void => {
+        const timeNow = new Date();
+        console.log(result);
+        // for (let j = 0; j < result.ctatt.eta.length; j++) {
+        //     const prdTime = new Date(result.ctatt.eta[j].arrT);
+        //     const eta = Math.floor(Math.abs(prdTime.valueOf() - timeNow.valueOf()) / 1000 / 60);
+        //     const routeColor = ctaRouteColors[result.ctatt.eta[j].rt];
+        //     document.getElementById("train").innerHTML += `<li class='trainItem'><i class='fa fa-train icon' style=background-color:${routeColor};></i><span class='eta' style=color:${routeColor};border-color:${routeColor};>${eta}m</span><span class='direction'>${result.ctatt.eta[j].destNm}</span></li>`;
+        // }
+    });
+    //});
 
     clearData("#weather");
     fetch(`${origin}/api/weather?weatherLatLong=${config.weatherLatLong}`).then((res): Promise<WeatherForecast> => res.json()).then((result): void => {
         const temp = result.current.temp;
         const tempF = Math.round(temp);
         const tempC = Math.round(((temp-32)*5)/9);
-        document.getElementById("weather").innerHTML = `<p>${tempF} &#176;F</p><p>${tempC} &#176;C</p>`;
+        const description = result.current.weather[0].main;
+        document.getElementById("weather").innerHTML = `<p>${description}</p><p class='fahrenheit'>${tempF} &#176;F</p><p class='celsius'>${tempC} &#176;C</p>`;
     });
 }

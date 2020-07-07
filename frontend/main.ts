@@ -23,7 +23,7 @@ function updateTime(): void {
     const hour = now.getHours();
     const min = now.getMinutes().toString().padStart(2, "0");
     const date = now.getDate().toString().padStart(2, "0");
-    const hourstr = ((hour > 12) ? (hour - 12) : hour).toString().padStart(2, "0");
+    const hourstr = ((hour > 12) ? (hour - 12) : hour).toString();
 
     timeElement.innerHTML = `${hourstr}:${min}`;
     dateElement.innerHTML = `${days[now.getDay()]} | ${months[now.getMonth()]} ${date}`;
