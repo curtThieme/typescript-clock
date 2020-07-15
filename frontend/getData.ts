@@ -5,6 +5,10 @@ interface StringIndexes {
     [key: string]: string;
 }
 
+interface TripUpdates
+{
+    trainUpdateList: (MetraTrainInfo)[];
+}
 // const ctaRouteColors: StringIndexes = {
 //     // TODO: Pick Better Colors
 //     Red: "#c10000",
@@ -114,7 +118,7 @@ interface StringIndexes {
 
 export interface Config {
     //"ctaBusStops"?: string[];
-    "metraTrain"?: string[];
+    "metraTrainLines"?: string[];
     "weatherLatLong"?: string;
     //"eventCalendars"?: string[];
 }
@@ -134,10 +138,9 @@ export function clearData(elementSelector?: string): void {
 export function getData(): void {
     const { origin } = window.location;
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams);
     const config = {
         //ctaBusStops: urlParams.get("ctaBusStops"),
-        metraTrain: urlParams.get("metraTrain"),
+        metraTrainLines: urlParams.get("metraTrainLines"),
         weatherLatLong: urlParams.get("weatherLatLong"),
         //eventCalendars: urlParams.get("eventCalendars"),
     };
@@ -163,9 +166,9 @@ export function getData(): void {
 
     clearData("#train");
     //config.metraTrain.split(",").forEach((ele): void => {
-    fetch(`${origin}/api/metraTrain?train=${config.metraTrain}`).then((res): Promise<MetraTrainInfo> => res.json()).then((result): void => {
+    fetch(`${origin}/api/metraTrain?train=${config.metraTrainLines}`).then((res): Promise<TripUpdates> => res.json()).then((result): void => {
         const timeNow = new Date();
-        console.log(result);
+        console.log(result.trainUpdateList[0]);
         // for (let j = 0; j < result.ctatt.eta.length; j++) {
         //     const prdTime = new Date(result.ctatt.eta[j].arrT);
         //     const eta = Math.floor(Math.abs(prdTime.valueOf() - timeNow.valueOf()) / 1000 / 60);

@@ -6,43 +6,43 @@ export interface MetraTrainInfo
         trip: {
             trip_id: string;
             route_id: string;
-            direction_id: number;
+            direction_id?: number | null;
             start_time: string;
             start_date: string;
-            schedule_relationship: scheduleRelationship;
+            schedule_relationship?: scheduleRelationship | null;
         };
         vehicle: {
             id: string;
             label: string;
-            license_plate: string;
+            license_plate?: string | null;
         };
-        stop_time_update: (StopTimeUpdate[]) | null;
-        timestamp: Timestamp;
+        stop_time_update?: (StopTimeUpdate)[] | null;
+        timestamp?: Timestamp | null;
         delay: number;
-        position: Position | null;
+        position?: Position | null;
     };
-    vehicle: number;
-    alert: number;
+    vehicle?: number | null;
+    alert?: number | null;
 }
 
 export interface StopTimeUpdate{
     stop_sequence: number;
     stop_id: string;
-    arrivial: StopTimeEvent;    
-    departure: StopTimeEvent;
-    schedule_relationship: scheduleRelationship;
+    arrivial?: StopTimeEvent | null;    
+    departure?: StopTimeEvent | null;
+    schedule_relationship?: scheduleRelationship | null;
 }
 
 export interface StopTimeEvent{
     delay: number;
-    time: Timestamp;
-    uncertainty: number | null; // If this is 0, then the position is certain, otherwise unknown if null
+    time?: Timestamp | null;
+    uncertainty?: number | null; // If this is 0, then the position is certain, otherwise unknown if null
 }
 
 export interface Timestamp{
-    low: string; //Our time stamp
-    high: number;
-    unsigned: boolean;
+    low: Date | null; //Our time stamp
+    high?: number | null;
+    unsigned?: boolean | null;
 }
 
 //--------------------------------------------------------------------------------------------------------------
@@ -51,42 +51,42 @@ export interface Timestamp{
 export interface Position{
     id: string;
     is_deleted: boolean;
-    trip_update: null;
+    trip_update?: any | null;
     vehicle: {
-        trip: TripDescriptor;
-        vehicle: VehicleDescriptor;
-        position: PositionActual;
-        current_stop_sequence: number;
-        stop_id: string;
-        current_status: vehicleStopStatus | null;
-        timestamp: Timestamp;
-        congestion_level: CongestionLevel | null;
-        occupancy_status: OccupancyStatus | null;
+        trip?: TripDescriptor | null;
+        vehicle?: VehicleDescriptor | null;
+        position?: PositionActual | null;
+        current_stop_sequence?: number | null;
+        stop_id?: string | null;
+        current_status?: vehicleStopStatus | null;
+        timestamp?: Timestamp | null;
+        congestion_level?: CongestionLevel | null;
+        occupancy_status?: OccupancyStatus | null;
     };
-    alert: null;
+    alert?: any | null;
 }
 
 export interface TripDescriptor{
     trip_id: string;
     route_id: string;
-    direction_id: number;
+    direction_id?: number | null;
     start_time: string;
     start_date: string;
-    schedule_relationship: scheduleRelationship;
+    schedule_relationship?: scheduleRelationship | null;
 }
 
 export interface VehicleDescriptor{
     id: string;
     label: string;
-    license_plate: string;
+    license_plate?: string | null;
 }
 
 export interface PositionActual{
     latitude: number;
     longitude: number;
-    bearing: number;
-    odometer: number;
-    speed: number;
+    bearing?: number | null;
+    odometer?: number | null;
+    speed?: number | null;
 }
 
 
