@@ -7,10 +7,7 @@ function getMetraTrain(trainLine: string) {
     return new Promise((resolve, reject): void => {
         const {METRA_TRAIN_KEY, METRA_TRAIN_SECRET} = process.env;
         const url = "https://gtfsapi.metrarail.com/gtfs/tripUpdates";
-        // let requestHeaders: any = new Headers();
-        // requestHeaders.set('Content-Type', 'application/json');
-        // //requestHeaders.set('X-ApiKeys', 'accessKey=' + METRA_TRAIN_KEY + '; secretKey=' + METRA_TRAIN_SECRET);
-        // requestHeaders.set('Authorization', 'Basic '+ btoa(METRA_TRAIN_KEY +":"+ METRA_TRAIN_SECRET));
+       
         fetch(url, {
             method: 'get',
             headers: {

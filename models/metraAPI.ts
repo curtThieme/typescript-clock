@@ -18,7 +18,7 @@ export interface MetraTrainInfo
         };
         stop_time_update?: (StopTimeUpdate)[] | null;
         timestamp?: Timestamp | null;
-        delay: number;
+        delay?: number | null;
         position?: Position | null;
     };
     vehicle?: number | null;

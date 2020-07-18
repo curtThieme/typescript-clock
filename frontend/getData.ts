@@ -5,10 +5,6 @@ interface StringIndexes {
     [key: string]: string;
 }
 
-interface TripUpdates
-{
-    trainUpdateList: (MetraTrainInfo)[];
-}
 // const ctaRouteColors: StringIndexes = {
 //     // TODO: Pick Better Colors
 //     Red: "#c10000",
@@ -166,9 +162,9 @@ export function getData(): void {
 
     clearData("#train");
     //config.metraTrain.split(",").forEach((ele): void => {
-    fetch(`${origin}/api/metraTrain?train=${config.metraTrainLines}`).then((res): Promise<TripUpdates> => res.json()).then((result): void => {
+    fetch(`${origin}/api/metraTrain?train=${config.metraTrainLines}`).then((res): Promise<MetraTrainInfo> => res.json()).then((result): void => {
         const timeNow = new Date();
-        console.log(result.trainUpdateList[0]);
+        console.log(result);
         // for (let j = 0; j < result.ctatt.eta.length; j++) {
         //     const prdTime = new Date(result.ctatt.eta[j].arrT);
         //     const eta = Math.floor(Math.abs(prdTime.valueOf() - timeNow.valueOf()) / 1000 / 60);
