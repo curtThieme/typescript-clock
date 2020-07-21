@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { Base64 } from 'js-base64';
 dotenv.config();
 
-function getMetraTrain(trainLine: string) {
+function getMetraTrain() {
     return new Promise((resolve, reject): void => {
         const {METRA_TRAIN_KEY, METRA_TRAIN_SECRET} = process.env;
         const url = "https://gtfsapi.metrarail.com/gtfs/tripUpdates";

@@ -11,7 +11,7 @@ body {
     font-family: Montserrat, sans-serif;
     font-size: 3em;
     color: #ffffff;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
@@ -178,6 +178,7 @@ body {
 
 #date {
     font-size: 1.5em;
+    padding-bottom: 10px;
 }
 
 #weather {
@@ -213,13 +214,13 @@ body {
     }
 }
 
-#cta {
+#metra {
     ul {
         list-style: none;
         clear: both;
         li {
             padding: 10px 0;
-            width: 50%;
+            width: 100%;
             float: left;
         }
     }
@@ -241,15 +242,27 @@ body {
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-    .eta {
-        width: 155px;
+    .trainNumber {
+        width: 130px;
         height: 80px;
         border: 3px solid #ffffff;
         border-left: none;
+        padding-left: 30px;
+        padding-right: 5px;
+        position: relative;
+        left: -40px;
+        text-align: right;
+    }
+    .routeID {
+        width: 180px;
+        height: 80px;
+        border: 3px solid #ffffff;
+        border-left: none;
+        border-right: none;
         padding-left: 20px;
         padding-right: 5px;
         position: relative;
-        left: -50px;
+        left: -30px;
         text-align: right;
     }
     .icon {
@@ -258,17 +271,6 @@ body {
         width: 80px;
         text-align: center;
         font-weight: bold;
-    }
-    #bus {
-        .icon {
-            border: 3px solid #ffffff;
-        }
-        li {
-            display: none;
-        }
-        li:nth-child(-n + 14) {
-            display: list-item;
-        }
     }
     #train {
         .icon {
@@ -281,7 +283,7 @@ body {
         li {
             display: none;
         }
-        li:nth-child(-n + 6) {
+        li:nth-child(-n + 12) {
             display: list-item;
         }
     }

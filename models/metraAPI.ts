@@ -28,19 +28,19 @@ export interface MetraTrainInfo
 export interface StopTimeUpdate{
     stop_sequence: number;
     stop_id: string;
-    arrivial?: StopTimeEvent | null;    
+    arrival?: StopTimeEvent | null;    
     departure?: StopTimeEvent | null;
     schedule_relationship?: scheduleRelationship | null;
 }
 
 export interface StopTimeEvent{
-    delay: number;
+    delay?: number | null;
     time?: Timestamp | null;
     uncertainty?: number | null; // If this is 0, then the position is certain, otherwise unknown if null
 }
 
 export interface Timestamp{
-    low: Date | null; //Our time stamp
+    low?: Date | string | null; //Our time stamp
     high?: number | null;
     unsigned?: boolean | null;
 }
@@ -69,7 +69,7 @@ export interface Position{
 export interface TripDescriptor{
     trip_id: string;
     route_id: string;
-    direction_id?: number | null;
+    direction_id?: number | null;  //should be a 1 or 0
     start_time: string;
     start_date: string;
     schedule_relationship?: scheduleRelationship | null;

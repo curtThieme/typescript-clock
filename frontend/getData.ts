@@ -1,21 +1,29 @@
 import { WeatherForecast } from '../models/weatherAPI';
 import { MetraTrainInfo } from '../models/metraAPI';
+//import * as IMG from '../public/SWS.png';
 
 interface StringIndexes {
     [key: string]: string;
 }
 
-// const ctaRouteColors: StringIndexes = {
-//     // TODO: Pick Better Colors
-//     Red: "#c10000",
-//     Blue: "#03396c",
-//     Brown: "#560d0d",
-//     Green: "#004a2f",
-//     Orange: "#ff6337",
-//     Pink: "#ff3e6d",
-//     Purple: "#866ec7",
-//     Yellow: "#e4c666",
-// }
+
+//Colors retrieved from metra site with eye dropper tool
+const metraRouteColors: StringIndexes = {
+    // North/Northwest
+    "MD-N": "#e97200",    //Milwaukee District North
+    "NCS": "#62319f",     //North Central Service
+    "UP-N": "#0f5200",    //Union Pacific North
+    "UP-NW": "#ffde00",   //Union Pacific Northwest
+    // South/Southwest
+    "HC": "#8b1e40",      //Heritage Corridor
+    "ME": "#ff4e00",      //Metra Electric District
+    "RI": "#e1261c",      //Rock Island District
+    "SWS": "#015db9",     //SouthWest Service
+    //West
+    "BNSF": "#3daf2c",    //BNSF Railway
+    "MD-W": "#f4b249",    //Milwaukee District West
+    "UP-W": "#ffb2b8",    //Union Pacific West
+}
 
 // interface CtaBusPrediction {
 //     "tmstmp": string;
@@ -80,37 +88,6 @@ interface StringIndexes {
 //     };
 // }
 
-// interface WeatherForecast {
-//     "lat": number;
-//     "lon": number;
-//     "timezone": string;
-//     "timezone_offset"?: number | null;
-//     "current": {
-//         "dt": number;
-//         "sunrise": number;
-//         "sunset": number;
-//         "temp": number;
-//         "feels_like"?: number | null;
-//         "pressure": number;
-//         "humidity": number;
-//         "dew_point": number;
-//         "uvi": number;
-//         "clouds": number;
-//         "visibility": number;
-//         "wind_speed"?: number | null;
-//         "wind_deg"?: number | null;
-//         "wind_gust"?: number | null;
-//         "weather"?: (WeatherInfo)[] | null;
-//     };
-// }
-
-// export interface WeatherInfo{
-//     "id": number;
-//     "main": string;
-//     "description": string;
-//     "icon": string;
-// }
-
 
 export interface Config {
     //"ctaBusStops"?: string[];
@@ -162,15 +139,36 @@ export function getData(): void {
 
     clearData("#train");
     //config.metraTrain.split(",").forEach((ele): void => {
-    fetch(`${origin}/api/metraTrain?train=${config.metraTrainLines}`).then((res): Promise<MetraTrainInfo> => res.json()).then((result): void => {
+    fetch(`${origin}/api/metraTrain?train=${config.metraTrainLines}`).then((res): Promise<MetraTrainInfo[]> => res.json()).then((result): void => {
         const timeNow = new Date();
+        ///api/metraTrain?train=${config.metraTrainLines}   //TODO: need this for config file
         console.log(result);
-        // for (let j = 0; j < result.ctatt.eta.length; j++) {
+        for(let numTrips = 0; numTrips < result.length; numTrips++)
+        {
+            if(config.metraTrainLines.includes(result[numTrips].trip_update.trip.route_id))
+            {
+                let routeID = result[numTrips].trip_update.trip.route_id;
+                let trainNumber = result[numTrips].trip_update.vehicle.label;
+                let eta = 0;
+                let stopID = "";
+                if(result[numTrips].trip_update.stop_time_update[0])
+                {
+                    const prdTime = new Date(result[numTrips].trip_update.stop_time_update[0].arrival.time.low);
+                    const delay = result[numTrips].trip_update.stop_time_update[0].arrival.delay;
+                    eta = Math.floor(Math.abs(((prdTime.valueOf() - timeNow.valueOf()) / 1000) + delay) / 60);
+                    stopID = result[numTrips].trip_update.stop_time_update[0].stop_id;
+                }
+                let routeColor = metraRouteColors[routeID];
+                //let imgSrc = `../public/${routeID}.png`;
+                document.getElementById("train").innerHTML += `<li class='trainItem'><i class='fa fa-train icon' style=background-color:${routeColor};></i><span class='routeID' style=color:${routeColor};border-color:${routeColor};>${routeID}</span><span class='trainNumber' style=color:${routeColor};border-color:${routeColor};>${trainNumber}</span><span class='eta' style=color:${routeColor};>${stopID}</span><span class='eta' style=color:${routeColor};>${eta}m</span></li>`; 
+            }
+        }
+        //<img src=\"${imgSrc}\">
+
         //     const prdTime = new Date(result.ctatt.eta[j].arrT);
         //     const eta = Math.floor(Math.abs(prdTime.valueOf() - timeNow.valueOf()) / 1000 / 60);
-        //     const routeColor = ctaRouteColors[result.ctatt.eta[j].rt];
+ 
         //     document.getElementById("train").innerHTML += `<li class='trainItem'><i class='fa fa-train icon' style=background-color:${routeColor};></i><span class='eta' style=color:${routeColor};border-color:${routeColor};>${eta}m</span><span class='direction'>${result.ctatt.eta[j].destNm}</span></li>`;
-        // }
     });
     //});
 
